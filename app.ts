@@ -7,7 +7,7 @@ const port = 3001;
 
 app.set('trust proxy', true);
 
-const whiteList = ['::1'];
+const whiteList = ['::1', '::ffff:52.79.140.247'];
 app.use((req, res, next) => {
   const clientIpAddress = checkClientIp(req) || '';
   if (whiteList.indexOf(clientIpAddress) === -1) {
