@@ -35,10 +35,15 @@ const list = async (req: Request, res: Response) => {
       apiRes.data.results.map(async (it: any) => {
         const id = it.url.split('/')[6];
         const species = await pokeApi.get(`/pokemon-species/${id}`);
+        const nameKor = species.data.names.filter(
+          (it: any) => it.language.name === 'ko'
+        );
+        const name =
+          nameKor.length > 0 ? nameKor[0].name : species.data.names[0].name;
         return {
           ...it,
           image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
-          nameKor: species.data.names[2].name,
+          nameKor: name,
           id: id,
         };
       })
